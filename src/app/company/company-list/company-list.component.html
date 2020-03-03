@@ -1,0 +1,14 @@
+<div class="row">
+  <div class="col-xs-12">
+    <button class="btn btn-success" (click)="onNewCompany()">New Company</button>
+  </div>
+</div>
+<hr>
+<div class="row">
+  <div class="col-xs-12">
+    <app-company-item
+      *ngFor="let companyEl of companies; let i = index"
+      [company]="companyEl"
+      [index]="i"></app-company-item>
+  </div>
+</div>
