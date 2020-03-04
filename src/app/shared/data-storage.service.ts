@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { map, tap } from 'rxjs/operators';
 import { CompanyService } from '../company/company.service';
 import { Company } from '../company/company.model';
 
@@ -17,8 +18,10 @@ export class DataStorageService {
 
   fetchCompanies() {
     this.http.get<Company[]>('https://front-we-crm.firebaseio.com/companies.json')
-    .subscribe(companies => {
+    .pipe(
+
+      tap(companies => {
       this.companyService.setCompanies(companies);
-    });
+    }));
   }
 }

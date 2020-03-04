@@ -3,4 +3,30 @@
     <h1>{{ company.name }}</h1>
   </div>
 </div>
-
+<div class="row">
+  <div class="col-xs-12">
+    <div
+      class="btn-group"
+      appDropdown>
+      <button
+        type="button"
+        class="btn btn-primary dropdown-toggle">
+        Manage Company <span class="caret"></span>
+      </button>
+      <ul class="dropdown-menu">
+        <li><a style="cursor: pointer;" (click)="onEditCompany()">Edit Company</a></li>
+        <li><a style="cursor: pointer;" (click)="onDeleteCompany()">Delete Company</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ company.full_name }}
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12">
+    {{ company.createdBy }}
+  </div>
+</div>
