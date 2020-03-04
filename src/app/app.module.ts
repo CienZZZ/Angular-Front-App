@@ -13,6 +13,8 @@ import { CompanyEditComponent } from './company/company-edit/company-edit.compon
 import { CompanyItemComponent } from './company/company-list/company-item/company-item.component';
 import { CompanyListComponent } from './company/company-list/company-list.component';
 import { CompanyStartComponent } from './company/company-start/company-start.component';
+import { CompanyService } from './company/company.service';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -30,9 +32,10 @@ import { CompanyStartComponent } from './company/company-start/company-start.com
   imports: [
     BrowserModule,
     FormsModule,
-    AppRoutingModule
+    AppRoutingModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [CompanyService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
