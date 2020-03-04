@@ -3,16 +3,15 @@ import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/r
 import { Company } from './company.model';
 import { DataStorageService } from '../shared/data-storage.service';
 import { CompanyService } from './company.service';
-import { Observable } from 'rxjs';
 
 @Injectable({providedIn: 'root'})
-export class CompanyResolverService implements Resolve<Company[]> {
+export class CompaniesResolverService implements Resolve<Company[]> {
   constructor(
     private dataStorageService: DataStorageService,
     private companyService: CompanyService
   ) {}
 
-  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):any {
     const companies = this.companyService.getCompanies();
 
     if(companies.length === 0) {

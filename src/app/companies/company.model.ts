@@ -1,3 +1,4 @@
+
 export class Company {
   public name: string;
   public full_name: string;
