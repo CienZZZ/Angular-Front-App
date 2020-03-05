@@ -7,7 +7,7 @@ import {
 } from '@angular/router';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { map, tap, take } from 'rxjs/operators';
+import { map, take } from 'rxjs/operators';
 
 import { AuthService } from './auth.service';
 
@@ -23,10 +23,10 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Promise<boolean | UrlTree>
     | Observable<boolean | UrlTree> {
-    return this.authService.my_worker.pipe(
+    return this.authService.user.pipe(
       take(1),
-      map(my_worker => {
-        const isAuth = !!my_worker;
+      map(user => {
+        const isAuth = !!user;
         if (isAuth) {
           return true;
         }

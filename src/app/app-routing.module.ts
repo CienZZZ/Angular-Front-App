@@ -30,7 +30,8 @@ const appRoutes: Routes = [
       resolve: [CompaniesResolverService]
     }
   ] },
-  { path: 'auth', component: AuthComponent}
+  { path: 'auth', component: AuthComponent},
+  { path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({

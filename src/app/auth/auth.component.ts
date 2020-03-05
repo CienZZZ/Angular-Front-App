@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { AuthService } from './auth.service';
+import { AuthService, AuthResponseData } from './auth.service';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-auth',
@@ -22,17 +23,49 @@ export class AuthComponent {
     if (!form.valid) {
       return;
     }
-    const login_name = form.value.login_name;
+    const email = form.value.email;
     const password = form.value.password;
+
+    let authObs: Observable<AuthResponseData>;
 
     this.isLoading = true;
 
     if (this.isLoginMode) {
-      this.authService.login(login_name, password);
+      authObs = this.authService.login(email, password);
     } else {
-
+      // authObs = this.authService.signup(email, password);
     }
+
+    authObs.subscribe(
+      resData => {
+        console.log(resData);
+        this.isLoading = false;
+        this.router.navigate(['/home']);
+      },
+      errorMessage => {
+        console.log(errorMessage);
+        this.error = errorMessage;
+        this.isLoading = false;
+      }
+    );
 
     form.reset();
   }
+  // onSubmit(form: NgForm) {
+  //   if (!form.valid) {
+  //     return;
+  //   }
+  //   const login_name = form.value.login_name;
+  //   const password = form.value.password;
+
+  //   this.isLoading = true;
+
+  //   if (this.isLoginMode) {
+  //     this.authService.login(login_name, password);
+  //   } else {
+
+  //   }
+
+  //   form.reset();
+  // }
 }
