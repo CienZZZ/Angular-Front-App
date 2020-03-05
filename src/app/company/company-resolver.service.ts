@@ -5,7 +5,7 @@ import { DataStorageService } from '../shared/data-storage.service';
 import { CompanyService } from './company.service';
 
 @Injectable({providedIn: 'root'})
-export class CompaniesResolverService implements Resolve<Company[]> {
+export class CompanyResolverService implements Resolve<Company[]> {
   constructor(
     private dataStorageService: DataStorageService,
     private companyService: CompanyService
