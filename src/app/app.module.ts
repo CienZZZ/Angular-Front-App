@@ -15,6 +15,7 @@ import { CompanyItemComponent } from './companies/company-list/company-item/comp
 import { CompanyListComponent } from './companies/company-list/company-list.component';
 import { CompanyStartComponent } from './companies/company-start/company-start.component';
 import { CompanyService } from './companies/company.service';
+import { AuthComponent } from './auth/auth.component';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import { CompanyService } from './companies/company.service';
     CompanyEditComponent,
     CompanyItemComponent,
     CompanyListComponent,
-    CompanyStartComponent
+    CompanyStartComponent,
+    AuthComponent
   ],
   imports: [
     BrowserModule,
