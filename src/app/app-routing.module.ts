@@ -8,11 +8,14 @@ import { CompanyEditComponent } from './companies/company-edit/company-edit.comp
 import { CompanyDetailComponent } from './companies/company-detail/company-detail.component';
 import { CompaniesResolverService } from './companies/companies-resolver.service';
 import { AuthComponent } from './auth/auth.component';
+import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent },
-  { path: 'companies', component: CompaniesComponent,
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'companies',
+  component: CompaniesComponent,
+  canActivate: [AuthGuard],
   children: [
     { path: '', component: CompanyStartComponent },
     { path: 'new', component: CompanyEditComponent },
