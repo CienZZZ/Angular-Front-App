@@ -1,41 +1,19 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { Routes, RouterModule, PreloadAllModules } from '@angular/router';
 
 import { HomeComponent } from './home/home.component';
-import { CompaniesComponent } from './companies/companies.component';
-import { CompanyStartComponent } from './companies/company-start/company-start.component';
-import { CompanyEditComponent } from './companies/company-edit/company-edit.component';
-import { CompanyDetailComponent } from './companies/company-detail/company-detail.component';
-import { CompaniesResolverService } from './companies/companies-resolver.service';
-import { AuthComponent } from './auth/auth.component';
 import { AuthGuard } from './auth/auth.guard';
 
 const appRoutes: Routes = [
   { path: '', redirectTo: '/home', pathMatch: 'full' },
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'companies',
-  component: CompaniesComponent,
-  canActivate: [AuthGuard],
-  children: [
-    { path: '', component: CompanyStartComponent },
-    { path: 'new', component: CompanyEditComponent },
-    {
-      path: ':id',
-      component: CompanyDetailComponent,
-      resolve: [CompaniesResolverService]
-    },
-    {
-      path: ':id/edit',
-      component: CompanyEditComponent,
-      resolve: [CompaniesResolverService]
-    }
-  ] },
-  { path: 'auth', component: AuthComponent},
+  { path: 'home', loadChildren: './home/home.module#HomeModule', canActivate: [AuthGuard] },
+  { path: 'companies', loadChildren: './companies/companies.module#CompaniesModule'},
+  { path: 'auth', loadChildren: './auth/auth.module#AuthModule'},
   { path: '**', redirectTo: '/home'}
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(appRoutes)],
+  imports: [RouterModule.forRoot(appRoutes, {preloadingStrategy: PreloadAllModules})],
   exports: [RouterModule]
 })
 
