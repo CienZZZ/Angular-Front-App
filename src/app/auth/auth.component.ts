@@ -51,6 +51,10 @@ export class AuthComponent {
 
     form.reset();
   }
+
+  onHandleError() {
+    this.error = null;
+  }
   // onSubmit(form: NgForm) {
   //   if (!form.valid) {
   //     return;
