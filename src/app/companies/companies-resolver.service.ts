@@ -12,8 +12,6 @@ import * as CompaniesActions from '../companies/store/company.actions';
 @Injectable({providedIn: 'root'})
 export class CompaniesResolverService implements Resolve<Company[]> {
   constructor(
-    // private dataStorageService: DataStorageService,
-    // private companyService: CompanyService
     private store: Store<fromApp.AppState>,
     private actions$: Actions
   ) {}
@@ -37,13 +35,4 @@ export class CompaniesResolverService implements Resolve<Company[]> {
       })
     );
   }
-  // resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot):any {
-  //   const companies = this.companyService.getCompanies();
-
-  //   if(companies.length === 0) {
-  //     return this.dataStorageService.fetchCompanies();
-  //   } else {
-  //     return companies;
-  //   }
-  // }
 }

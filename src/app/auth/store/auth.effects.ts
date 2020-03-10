@@ -59,38 +59,6 @@ const handleError = (errorRes: any) => {
 
 @Injectable()
 export class AuthEffects {
-  // @Effect()
-  // authSignup = this.actions$.pipe(
-  //   ofType(AuthActions.SIGNUP_START),
-  //   switchMap((signupAction: AuthActions.SignupStart) => {
-  //     return this.http
-  //       .post<AuthResponseData>(
-  //         'https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=' +
-  //           environment.firebaseAPIKey,
-  //         {
-  //           email: signupAction.payload.email,
-  //           password: signupAction.payload.password,
-  //           returnSecureToken: true
-  //         }
-  //       )
-  //       .pipe(
-  //         tap(resData => {
-  //           this.authService.setLogoutTimer(+resData.expiresIn * 1000);
-  //         }),
-  //         map(resData => {
-  //           return handleAuthentication(
-  //             +resData.expiresIn,
-  //             resData.email,
-  //             resData.localId,
-  //             resData.idToken
-  //           );
-  //         }),
-  //         catchError(errorRes => {
-  //           return handleError(errorRes);
-  //         })
-  //       );
-  //   })
-  // );
 
   @Effect()
   authLogin = this.actions$.pipe(
@@ -157,7 +125,6 @@ export class AuthEffects {
       );
 
       if (loadedUser.token) {
-        // this.user.next(loadedUser);
         const expirationDuration =
           new Date(userData._tokenExpirationDate).getTime() -
           new Date().getTime();
@@ -169,11 +136,6 @@ export class AuthEffects {
           expirationDate: new Date(userData._tokenExpirationDate),
           redirect: false
         });
-
-        // const expirationDuration =
-        //   new Date(userData._tokenExpirationDate).getTime() -
-        //   new Date().getTime();
-        // this.autoLogout(expirationDuration);
       }
       return { type: 'DUMMY' };
     })

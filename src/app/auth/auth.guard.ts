@@ -28,7 +28,6 @@ export class AuthGuard implements CanActivate {
     | UrlTree
     | Promise<boolean | UrlTree>
     | Observable<boolean | UrlTree> {
-    // return this.authService.user.pipe(
     return this.store.select('auth').pipe(
       take(1),
       map(authState => {
@@ -41,11 +40,6 @@ export class AuthGuard implements CanActivate {
         }
         return this.router.createUrlTree(['/auth']);
       })
-      // tap(isAuth => {
-      //   if (!isAuth) {
-      //     this.router.navigate(['/auth']);
-      //   }
-      // })
     );
   }
 }

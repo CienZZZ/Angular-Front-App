@@ -23,13 +23,6 @@ export class CompanyDetailComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    // this.route.params
-    //   .subscribe(
-    //     (params: Params) => {
-    //       this.id = +params['id'];
-    //       this.company = this.companyService.getCompany(this.id);
-    //     }
-    //   );
     this.route.params
       .pipe(
         map(params => {
@@ -55,7 +48,6 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onDeleteCompany() {
-    // this.companyService.deleteCompany(this.id);
     this.store.dispatch(new CompaniesActions.DeleteCompany(this.id));
     this.router.navigate(['/companies']);
   }

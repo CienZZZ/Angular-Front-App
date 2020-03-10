@@ -30,13 +30,6 @@ export class CompanyListComponent implements OnInit, OnDestroy {
     .subscribe((companies: Company[]) => {
       this.companies = companies;
     });
-    // this.subscription = this.companyService.companiesChanged
-    //   .subscribe(
-    //     (companies: Company[]) => {
-    //       this.companies = companies;
-    //     }
-    //   )
-    // this.companies = this.companyService.getCompanies();
   }
 
   onNewCompany() {

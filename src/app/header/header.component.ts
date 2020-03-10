@@ -13,18 +13,12 @@ import { map } from 'rxjs/operators';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   isAuthenticated = false;
-  private myworkerSub: Subscription;
+  private userSub: Subscription;
 
-  // constructor(private dataStorageService: DataStorageService, private authService: AuthService) {}
   constructor(private store: Store<fromApp.AppState>) {}
 
   ngOnInit() {
-    // this.myworkerSub = this.authService.user.subscribe(user => {
-    //   this.isAuthenticated = !!user;
-    //   console.log(!user);
-    //   console.log(!!user);
-    // });
-    this.myworkerSub = this.store
+    this.userSub = this.store
       .select('auth')
       .pipe(map(authState => authState.user))
       .subscribe(user => {
@@ -35,22 +29,19 @@ export class HeaderComponent implements OnInit, OnDestroy {
   }
 
   onSaveData() {
-    // this.dataStorageService.storeCompanies();
     this.store.dispatch(new CompanyActions.StoreCompanies());
   }
 
   onFetchData() {
-    // this.dataStorageService.fetchCompanies();
     this.store.dispatch(new CompanyActions.FetchCompanies());
   }
 
   onLogout() {
-    // this.authService.logout();
     this.store.dispatch(new AuthActions.Logout());
   }
 
   ngOnDestroy() {
-    this.myworkerSub.unsubscribe();
+    this.userSub.unsubscribe();
   }
 }
 

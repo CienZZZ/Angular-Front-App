@@ -37,7 +37,6 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
 
   onSubmit() {
     if(this.editMode) {
-      // this.companyService.updateCompany(this.id, this.companyForm.value);
       this.store.dispatch(
         new CompaniesActions.UpdateCompany({
           index: this.id,
@@ -45,7 +44,6 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
         })
       );
     } else {
-      // this.companyService.addCompany(this.companyForm.value);
       this.store.dispatch(new CompaniesActions.AddCompany(this.companyForm.value));
     }
     this.onCancel();
@@ -67,10 +65,6 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
     let companyCreatedBy = '';
 
     if(this.editMode) {
-      // const company = this.companyService.getCompany(this.id);
-      // companyName = company.name;
-      // companyFullName = company.full_name;
-      // companyCreatedBy = company.createdBy;
       this.storeSub = this.store
         .select('companies')
         .pipe(

@@ -19,13 +19,6 @@ export class CompanyEffects {
         'https://front-we-crm.firebaseio.com/company.json'
       );
     }),
-    // map( companies => {
-    //   return companies.map(company => {
-    //     return {
-    //       ...company
-    //     };
-    //   });
-    // }),
     map(companies => {
       return new CompaniesActions.SetCompanies(companies);
     })
