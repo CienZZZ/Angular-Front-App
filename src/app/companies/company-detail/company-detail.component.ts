@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { map, switchMap } from 'rxjs/operators';
 
 import { Company } from '../company.model';
-import { CompanyService } from '../company.service';
-
+import * as fromApp from '../../store/app.reducer';
+import * as CompaniesActions from '../store/company.actions';
 
 @Component({
   selector: 'app-company-detail',
@@ -14,18 +16,38 @@ export class CompanyDetailComponent implements OnInit {
   company: Company;
   id: number;
 
-  constructor(private companyService: CompanyService,
-              private route: ActivatedRoute,
-              private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store<fromApp.AppState>
+  ) { }
 
   ngOnInit() {
+    // this.route.params
+    //   .subscribe(
+    //     (params: Params) => {
+    //       this.id = +params['id'];
+    //       this.company = this.companyService.getCompany(this.id);
+    //     }
+    //   );
     this.route.params
-      .subscribe(
-        (params: Params) => {
-          this.id = +params['id'];
-          this.company = this.companyService.getCompany(this.id);
-        }
-      );
+      .pipe(
+        map(params => {
+          return +params['id'];
+        }),
+        switchMap(id => {
+          this.id = id;
+          return this.store.select('companies');
+        }),
+        map(comapniesState => {
+          return comapniesState.companies.find((company, index) => {
+            return index === this.id;
+          });
+        })
+      )
+      .subscribe(company => {
+        this.company = company;
+      });
   }
 
   onEditCompany() {
@@ -33,7 +55,8 @@ export class CompanyDetailComponent implements OnInit {
   }
 
   onDeleteCompany() {
-    this.companyService.deleteCompany(this.id);
+    // this.companyService.deleteCompany(this.id);
+    this.store.dispatch(new CompaniesActions.DeleteCompany(this.id));
     this.router.navigate(['/companies']);
   }
 
